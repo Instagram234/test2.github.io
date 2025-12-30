@@ -2,18 +2,23 @@
 <button id="sendBtn">Senden</button>
 
 <script>
-const serverURL = "http://192.168.1.117/submit"; // z.B. 192.168.0.5
+const serverURL = "https://alberta-costoclavicular-heath.ngrok-free.dev/submit";
 
-document.getElementById("sendBtn").addEventListener("click", () => {
+document.getElementById("sendBtn").addEventListener("click", async () => {
     const text = document.getElementById("myInput").value;
 
-    fetch(serverURL, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({text})
-    })
-    .then(res => res.json())
-    .then(data => alert("Text gesendet!"))
-    .catch(err => alert("Fehler beim Senden: " + err));
+    try {
+        const res = await fetch(serverURL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({text})
+        });
+
+        if (!res.ok) throw new Error("Serverantwort nicht OK");
+        const data = await res.json();
+        alert("Text gesendet!");
+    } catch (err) {
+        alert("Fehler beim Senden: " + err);
+    }
 });
 </script>
