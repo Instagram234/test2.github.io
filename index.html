@@ -1,0 +1,19 @@
+<input type="text" id="myInput" placeholder="Gib etwas ein">
+<button id="sendBtn">Senden</button>
+
+<script>
+const serverURL = "http://192.168.1.117/submit"; // z.B. 192.168.0.5
+
+document.getElementById("sendBtn").addEventListener("click", () => {
+    const text = document.getElementById("myInput").value;
+
+    fetch(serverURL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({text})
+    })
+    .then(res => res.json())
+    .then(data => alert("Text gesendet!"))
+    .catch(err => alert("Fehler beim Senden: " + err));
+});
+</script>
