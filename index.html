@@ -16,9 +16,9 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
 
         if (!res.ok) throw new Error("Serverantwort nicht OK");
         const data = await res.json();
-        alert("Text gesendet!");
     } catch (err) {
         alert("Fehler beim Senden: " + err);
     }
 });
 </script>
+
